@@ -14,7 +14,8 @@ class FirebaseAuthRepo implements AuthRepo {
       AppUser user = AppUser(
         uid: userCredential.user!.uid,
         email:email,
-        name: ''
+        name: '',
+        // username: userCredential.user!.user,
       );
       return user;
     }
@@ -27,7 +28,7 @@ class FirebaseAuthRepo implements AuthRepo {
   Future<AppUser?> registerWithEmailPassword(String name,String email, String password) async {
     try{
       UserCredential userCredential = await firebaseAuth.
-      createUserWithEmailAndPassword(email:email,password:password, name: name);
+      createUserWithEmailAndPassword(email:email,password:password);
 
       AppUser user = AppUser(
           uid: userCredential.user!.uid,
