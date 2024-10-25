@@ -28,7 +28,7 @@ class _SplashState extends State<Splash> {
                 ),
               ),
             ),
-            nextScreen: const MyHomePage(title: '',),
+            nextScreen: const MyHomePage(),
             splashTransition: SplashTransition.fadeTransition,
             pageTransitionType: PageTransitionType.leftToRightWithFade,
           ),
