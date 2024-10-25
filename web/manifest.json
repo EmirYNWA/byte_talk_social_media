@@ -1,6 +1,6 @@
 {
-    "name": "social_media_app",
-    "short_name": "social_media_app",
+    "name": "Linkapp",
+    "short_name": "Linkapp",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
