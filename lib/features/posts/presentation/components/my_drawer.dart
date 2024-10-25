@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:social_media_app/post/presentation/components/my_drawer_tile.dart';
+import 'my_drawer_tile.dart';
 
 class MyDrawer extends StatelessWidget{
   const MyDrawer({super.key});
