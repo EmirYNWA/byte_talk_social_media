@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:social_media_app/features/auth/presentaion/pages/auth_page.dart';
 import 'package:social_media_app/main.dart';
+
+import '../app.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -28,7 +31,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
     Future.delayed(const Duration(seconds: 3), () {
 
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const MyHomePage(title: '')),
+        MaterialPageRoute(builder: (context) => AppFlow()),
       );
     });
   }
