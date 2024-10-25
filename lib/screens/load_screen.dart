@@ -1,5 +1,3 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:social_media_app/main.dart';
 
@@ -10,56 +8,96 @@ class Splash extends StatefulWidget {
   State<Splash> createState() => _SplashState();
 }
 
-class _SplashState extends State<Splash> {
+class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+
+    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
+
+    _controller.forward();
+
+    Future.delayed(const Duration(seconds: 3), () {
+
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const MyHomePage(title: '')),
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          AnimatedSplashScreen(
-            splash: Center(
+          Container(
+            color: const Color(0xffb1d4e0),
+            child: Center(
               child: ClipRRect(
                 borderRadius: BorderRadius.zero,
-                child: SizedBox.expand(
-                  child: Image.asset(
-                    'assets/logo2.png',
-                    fit: BoxFit.contain,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  height: MediaQuery.of(context).size.width * 0.7,
+                  child: FadeTransition(
+                    opacity: _animation,
+                    child: Image.asset(
+                      'assets/logo3.png',
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
               ),
             ),
-            nextScreen: const MyHomePage(),
-            splashTransition: SplashTransition.fadeTransition,
-            pageTransitionType: PageTransitionType.leftToRightWithFade,
           ),
 
-          const Positioned(
-            bottom: 300.0,
+          Positioned(
+            bottom: 280.0,
             left: 0,
             right: 0,
             child: Center(
-              child: Text(
-                'LINKAPP',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Poppins',
-                  color: Colors.black,
+              child: FadeTransition(
+                opacity: _animation,
+                child: const Text(
+                  'LINKAPP',
+                  style: TextStyle(
+                    fontSize: 26.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Poppins',
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
           ),
-          const Positioned(
-            bottom: 270.0,
+          Positioned(
+            bottom: 250.0,
             left: 0,
             right: 0,
             child: Center(
-              child: Text(
-                'Link moments, share stories',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  //fontFamily: 'Poppins',
-                  color: Colors.red,
+              child: FadeTransition(
+                opacity: _animation,
+                child: const Text(
+                  'Link moments, share stories',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white70,
+                  ),
                 ),
               ),
             ),
