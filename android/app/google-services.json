@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "201290122287",
+    "project_id": "link-app-75039",
+    "storage_bucket": "link-app-75039.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:201290122287:android:4cfa83957d26158490f2da",
+        "android_client_info": {
+          "package_name": "com.byte_talk.social_media_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5lIMz4MYFGP_Mcu1jNnLOagFOA6X7br0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
