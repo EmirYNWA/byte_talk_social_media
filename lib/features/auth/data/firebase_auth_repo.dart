@@ -31,9 +31,9 @@ class FirebaseAuthRepo implements AuthRepo {
       createUserWithEmailAndPassword(email:email,password:password);
 
       AppUser user = AppUser(
-          uid: userCredential.user!.uid,
-          email:email,
-          name: name,
+        uid: userCredential.user!.uid,
+        email:email,
+        name: name,
       );
 
       return user;
@@ -59,9 +59,9 @@ class FirebaseAuthRepo implements AuthRepo {
 
     //user exist
     return AppUser(
-        uid: firebaseUser.uid,
-        email: firebaseUser.email!,
-        name: '',
+      uid: firebaseUser.uid,
+      email: firebaseUser.email!,
+      name: '',
     );
   }
 }
