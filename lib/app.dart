@@ -5,15 +5,21 @@ import 'package:social_media_app/features/auth/presentaion/cubits/auth.states.da
 import 'package:social_media_app/features/auth/presentaion/cubits/auth_cubit.dart';
 import 'package:social_media_app/features/auth/presentaion/pages/auth_page.dart';
 import 'package:social_media_app/features/home/presentation/pages/home_page.dart';
+import 'package:social_media_app/features/post/data/firebase_post_repo.dart';
+import 'package:social_media_app/features/post/presentation/cubits/post_cubits.dart';
 import 'package:social_media_app/features/profile/data/firebase_profile_repo.dart';
 import 'package:social_media_app/features/profile/presentation/cubits/profile_cubit.dart';
+import 'package:social_media_app/features/storage/data/firebase_storage_repo.dart';
 import 'package:social_media_app/themes/light_mode.dart';
 
 class AppFlow extends StatelessWidget {
   final authRepo = FirebaseAuthRepo();
+  final storageRepo = FirebaseStorageRepo();
 
   //profile repo
   final profileRepo = FirebaseProfileRepo();
+
+  final firebasePostRepo = FirebasePostRepo();
 
   AppFlow({super.key});
 
@@ -27,7 +33,10 @@ class AppFlow extends StatelessWidget {
         ),
 
         // profile cubit
-        BlocProvider<ProfileCubit>(create: (context) => ProfileCubit(profileRepo: profileRepo),
+        BlocProvider<ProfileCubit>(create: (context) => ProfileCubit(profileRepo: profileRepo, storageRepo: storageRepo),
+        ),
+
+        BlocProvider<PostCubit>(create: (context) => PostCubit(postRepo: firebasePostRepo, storageRepo: storageRepo),
         ),
       ],
       child: MaterialApp(
