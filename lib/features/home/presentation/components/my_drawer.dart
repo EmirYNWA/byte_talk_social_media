@@ -47,8 +47,8 @@ class MyDrawer extends StatelessWidget{
                     // pop menu drawer
                     Navigator.of(context).pop();
                     // get current user id
-                    final user = context.read<AuthCubit>().currentUser;
-                    String? uid = user!.uid;
+                    final users = context.read<AuthCubit>().currentUser;
+                    String? uid = users!.uid;
                     //navigate to profile page
                     Navigator.push(
                       context,
