@@ -26,7 +26,7 @@ class Post{
         text: text,
         imageUrl: imageUrl ?? this.imageUrl,
         timestamp: timestamp,
-        likes: likse,
+        likes: likes,
         );
   }
   Map<String, dynamic> toJson(){
