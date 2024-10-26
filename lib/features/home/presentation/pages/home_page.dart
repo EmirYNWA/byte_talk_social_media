@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_media_app/features/chat/presentation/pages/chat_list_page.dart';
 import 'package:social_media_app/features/home/presentation/components/my_drawer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media_app/features/post/presentation/cubits/post_cubits.dart';
@@ -44,6 +45,9 @@ class _HomePageState extends State<HomePage> {
           IconButton(onPressed: () =>
               Navigator.push(context, MaterialPageRoute(builder:(context) => UploadPostPage())),
               icon: const Icon(Icons.add)),
+          IconButton(onPressed: () =>
+              Navigator.push(context, MaterialPageRoute(builder:(context) => ChatListPage())),
+              icon: const Icon(Icons.message)),
 
         ],
       ),

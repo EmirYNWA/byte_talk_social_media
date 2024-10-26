@@ -6,7 +6,7 @@ import '../components/user_tile.dart';
 import 'chat_page.dart';
 
 class ChatListPage extends StatelessWidget {
-  const ChatListPage({super.key});
+  ChatListPage({super.key});
 
   final ChatService _chatService = ChatService();
   final AuthService _authService = AuthService();
@@ -16,6 +16,9 @@ class ChatListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home', style: TextStyle(fontFamily: 'Poppins'),),
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.grey,
+        elevation: 0,
       ),
       drawer: const MyDrawer(),
       body: _buildUserList(),
@@ -54,7 +57,10 @@ class ChatListPage extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => ChatPage(receiverEmail: userData['email'],)
+                  builder: (context) => ChatPage(
+                    receiverEmail: userData['email'],
+                    receiverID: userData['uid'],
+                  )
               )
           );
         },
