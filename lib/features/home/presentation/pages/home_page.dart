@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:social_media_app/features/chat/presentation/pages/chat_list_page.dart';
 import 'package:social_media_app/features/home/presentation/components/my_drawer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media_app/features/post/presentation/components/post_tile.dart';
@@ -15,12 +16,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   // post cubit
   late final postCubit = context.read<PostCubit>();
 
   @override
   void initState() {
     super.initState();
+
     // fetch all posts
     fetchAllPosts();
   }
@@ -39,16 +42,18 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
+
         actions: [
-          IconButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const UploadPostPage()),
-            ),
-            icon: const Icon(Icons.add),
-          ),
+          IconButton(onPressed: () =>
+              Navigator.push(context, MaterialPageRoute(builder:(context) => UploadPostPage())),
+              icon: const Icon(Icons.add)),
+          IconButton(onPressed: () =>
+              Navigator.push(context, MaterialPageRoute(builder:(context) => ChatListPage())),
+              icon: const Icon(Icons.message)),
+
         ],
       ),
+
       // DRAWER
       drawer: const MyDrawer(),
       body: BlocBuilder<PostCubit, PostState>(
