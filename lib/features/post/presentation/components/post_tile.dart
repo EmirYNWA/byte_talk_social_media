@@ -7,7 +7,7 @@ import 'package:social_media_app/features/profile/presentation/cubits/profile_cu
 
 import '../../../auth/domain/entities/app_user.dart';
 import '../../../auth/presentaion/cubits/auth_cubit.dart';
-import '../../../post/domain/entities/post.dart';
+import '../../domain/entities/post.dart';
 import '../../../profile/domain/entities/profile_user.dart';
 
 class PostTile extends StatefulWidget {
@@ -52,7 +52,34 @@ class _PostTileState extends State<PostTile> {
       });
     }
   }
+  // likes
 
+  // user tapped like button
+  void toggleLikePost(){
+    // current like status
+    final isLiked = widget.post.likes.contains(currentUser!.uid);
+    // optimistically like&update UI
+    setState(() {
+      if(isLiked){
+        widget.post.likes.remove(currentUser!.uid); // unlike
+      }
+      else{
+        widget.post.likes.add(currentUser!.uid); // like
+      }
+    });
+    //update like
+    postCubit.toggleLikePost(widget.post.id, currentUser!.uid).catchError((error){
+      // if the's an arror, revert back to original values
+      setState(() {
+        if(isLiked){
+          widget.post.likes.add(currentUser!.uid); // revert unlike
+        }
+        else{
+          widget.post.likes.remove(currentUser!.uid); // revert like :"D
+        }
+      });
+    });
+  }
 
   void showOptions(){
     showDialog(
@@ -121,11 +148,20 @@ class _PostTileState extends State<PostTile> {
             padding: const EdgeInsets.all(20.0),
             child: Row(
               children: [
-                  Icon(Icons.favorite_border),
-                  Text(" "),
-                  Text("0"),
+                  GestureDetector(
+                    onTap: toggleLikePost,
+                    child: Icon(
+                    widget.post.likes.contains(currentUser!.uid)
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    ),
+                  ),
 
+                  Text(widget.post.likes.length.toString()),
 
+                  const SizedBox(width:20),
+
+                  // comment button
                   Icon(Icons.comment),
                   Text(" "),
                   Text("0"),
