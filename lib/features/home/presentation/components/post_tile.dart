@@ -6,6 +6,7 @@ import 'package:social_media_app/features/post/presentation/cubits/post_cubits.d
 import 'package:social_media_app/features/profile/presentation/cubits/profile_cubit.dart';
 
 import '../../../auth/domain/entities/app_user.dart';
+import '../../../auth/presentaion/cubits/auth_cubit.dart';
 import '../../../post/domain/entities/post.dart';
 import '../../../profile/domain/entities/profile_user.dart';
 
@@ -28,6 +29,30 @@ class _PostTileState extends State<PostTile> {
 
   ProfileUser? postUser;
 
+  // on startup
+  @override
+  void initState() {
+    super.initState();
+
+    getCurrentUser();
+    fetchPostUser();
+  }
+
+  void getCurrentUser() {
+    final authCubit = context.read<AuthCubit>();
+    currentUser = authCubit.currentUser;
+    isOwnPost = (widget.post.userId == currentUser!.uid);
+  }
+
+  Future<void> fetchPostUser() async {
+    final fetchedUser = await profileCubit.getUserProfile(widget.post.userId);
+    if (fetchedUser!= null){
+      setState(() {
+        postUser = fetchedUser;
+      });
+    }
+  }
+
 
   void showOptions(){
     showDialog(
@@ -46,26 +71,59 @@ class _PostTileState extends State<PostTile> {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(widget.post.username),
-            IconButton(onPressed: widget.onDeletePressed,
-                icon: const Icon(Icons.delete),
-            )
-          ],
-        ),
-        CachedNetworkImage(
-          imageUrl: widget.post.imageUrl,
-          height: 430,
-          width: double.infinity,
-          fit: BoxFit.cover,
-          placeholder: (context, url) => const SizedBox(height: 430),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
-        ),
-      ],
+    return  Container(
+      color: Theme.of(context).colorScheme.secondary,
+      child: Column(
+        children: [
+
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+
+                postUser?.profileImageUrl != null ? CachedNetworkImage(
+                  imageUrl: postUser!.profileImageUrl,
+                  errorWidget: (context, url, error) => const Icon(Icons.person),
+                  imageBuilder: (context, ImageProvider) => Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(image: ImageProvider, fit: BoxFit.cover),
+                    ),
+                  ),
+                )
+                    : const Icon(Icons.person),
+
+                const SizedBox(width: 15,),
+
+                Text(widget.post.username),
+
+                const Spacer(),
+                if(isOwnPost)
+                  GestureDetector(
+                    onTap: showOptions,
+                    child: const Icon(Icons.delete),
+                  )
+              ],
+            ),
+          ),
+          CachedNetworkImage(
+            imageUrl: widget.post.imageUrl,
+            height: 430,
+            width: double.infinity,
+            fit: BoxFit.cover,
+            placeholder: (context, url) => const SizedBox(height: 430),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+          ),
+          Row(
+            children: [
+
+            ],
+          )
+        ],
+      ),
     );
   }
 }
