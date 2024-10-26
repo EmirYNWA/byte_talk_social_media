@@ -27,6 +27,10 @@ class PostCubit extends Cubit<PostState> {
       }
 
       final newPost = post.copywith(imageUrl: imageUrl);
+
+      postRepo.createPost(newPost);
+
+      fetchAllPosts();
     } catch (e) {
       emit(PostsError('Failed to create post: $e'));
     }
