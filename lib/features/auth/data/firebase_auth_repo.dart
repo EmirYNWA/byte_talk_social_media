@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import '../domain/entities/app_user.dart';
 import '../domain/repos/auth_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,11 +34,23 @@ class FirebaseAuthRepo implements AuthRepo {
     }
   }
 
+  Future<void> sendVerificationEmail(User? user) async {
+    if (user != null && !user.emailVerified) {
+      await user.sendEmailVerification();
+      print("Verification email sent to ${user.email}");
+    }
+  }
+
   @override
   Future<AppUser?> registerWithEmailPassword(String name,String email, String password) async {
     try{
       UserCredential userCredential = await firebaseAuth.
       createUserWithEmailAndPassword(email:email,password:password);
+
+      const SnackBar(content: Text("Verification e-mail has been sent!")
+        , duration: Duration(seconds: 2),) ;
+
+      await sendVerificationEmail(userCredential.user);
 
       AppUser user = AppUser(
           uid: userCredential.user!.uid,
