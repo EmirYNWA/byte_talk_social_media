@@ -23,7 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final pwController = TextEditingController();
   final confirmPwController = TextEditingController();
 
-  void register (){
+  void register() {
     final String name = nameController.text;
     final String email = emailController.text;
     final String pw = pwController.text;
@@ -31,22 +31,48 @@ class _RegisterPageState extends State<RegisterPage> {
 
     final authCubit = context.read<AuthCubit>();
 
-    if (email.isNotEmpty && name.isNotEmpty && pw.isNotEmpty && confirmPw.isNotEmpty){
-      if (pw == confirmPw){
-        authCubit.register(name, email, pw);
-      }
-      else{
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content:
-            Text('Passwords do not match!')));
-      }
-    }
-    else{
+
+    if (email.isEmpty || name.isEmpty || pw.isEmpty || confirmPw.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content:
-          Text('Please complete all fields')));
+        const SnackBar(content: Text('Please fill in all fields')),
+      );
+      return;
     }
+
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter a valid email address')),
+      );
+      return;
+    }
+
+    if (pw.length < 8 || pw.length > 16) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Password must contain between 8 and 16 characters')),
+      );
+      return;
+    }
+    if (!pw.contains(RegExp(r'[0-9]'))) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Password must contain at least one number')),
+      );
+      return;
+    }
+    if (!pw.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Password must contain at least one special character')),
+      );
+      return;
+    }
+    if (pw != confirmPw) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Passwords do not match')),
+      );
+      return;
+    }
+    authCubit.register(name, email, pw);
   }
+
 
   @override
   void dispose() {

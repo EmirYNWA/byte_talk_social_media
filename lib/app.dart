@@ -9,10 +9,6 @@ import 'package:social_media_app/features/profile/data/firebase_profile_repo.dar
 import 'package:social_media_app/features/profile/presentation/cubits/profile_cubit.dart';
 import 'package:social_media_app/themes/light_mode.dart';
 
-
-
-
-
 class AppFlow extends StatelessWidget {
   final authRepo = FirebaseAuthRepo();
 
