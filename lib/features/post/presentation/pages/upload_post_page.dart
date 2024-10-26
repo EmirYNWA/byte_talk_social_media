@@ -89,24 +89,41 @@ class _UploadPostPageState extends State<UploadPostPage> {
               icon: Icon(Icons.upload)),
         ],
       ),
-      body: Center(
-        child: Column(
-          children: [
-            if (kIsWeb && webImage != null)
-              Image.memory(webImage!),
-            if (!kIsWeb && imagePickedFile != null)
-              Image.file(File(imagePickedFile!.path!)),
-            MaterialButton(
-              onPressed: pickImage,
-              color: Colors.grey.shade400,
-              child: const Text('Pick image'),
-            ),
-            MyTextField(
-              controller: textController,
-              hintText: "Caption",
-              obscureText: false,
-            ),
-          ],
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Center(
+          child: Column(
+            children: [
+              if (kIsWeb && webImage != null)
+                Image.memory(webImage!),
+              if (!kIsWeb && imagePickedFile != null)
+                Image.file(File(imagePickedFile!.path!)),
+              const SizedBox(height: 20,),
+              MaterialButton(
+                onPressed: pickImage,
+                color: Colors.grey.shade400,
+                textColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: const Text(
+                  'Pick Image',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 40,),
+              MyTextField(
+                controller: textController,
+                hintText: "Caption",
+                obscureText: false,
+              ),
+            ],
+          ),
         ),
       ),
     );

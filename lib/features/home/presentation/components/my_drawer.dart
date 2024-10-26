@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_media_app/features/home/presentation/components/search.dart';
+import 'package:social_media_app/features/post/presentation/pages/upload_post_page.dart';
 import 'package:social_media_app/features/settings/pages/settings_page.dart';
 import '../../../auth/presentaion/cubits/auth_cubit.dart';
 import '../../../profile/presentation/pages/profile_page.dart';
@@ -60,9 +62,31 @@ class MyDrawer extends StatelessWidget{
 
                 //search tile
                 MyDrawerTile(
+
                   title: "S E A R C H",
                   icon: Icons.search,
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SearchScreen(),
+                      ),
+                    );
+                  },
+
+                ),
+
+                MyDrawerTile(
+                  title: "A D D  P I C T U R E",
+                  icon: Icons.add,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder:(context)=>UploadPostPage(),
+                      ),
+                    );
+                  },
                 ),
 
                 // settings tile
@@ -83,7 +107,8 @@ class MyDrawer extends StatelessWidget{
                 MyDrawerTile(
                   title: "L O G O U T",
                   icon: Icons.login,
-                  onTap: () => context.read<AuthCubit>().logout(),
+                  onTap: () {context.read<AuthCubit>().logout();
+                  Navigator.of(context).pushReplacementNamed('/login');},
                 ),
               ],
             ),
