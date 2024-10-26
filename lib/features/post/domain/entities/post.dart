@@ -49,7 +49,7 @@ class Post{
         text: json['text'],
         imageUrl: json['imageUrl'],
         timestamp: (json['timestamp'] as Timestamp).toDate(),
-        likes: json['likes'] ?? [],
+        likes: List<String>.from(json['likes'] ?? []),
       );
     }
 }
