@@ -1,10 +1,9 @@
-import 'dart:nativewrappers/_internal/vm/lib/typed_data_patch.dart';
+import 'dart:typed_data';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:social_media_app/app.dart';
 import 'package:social_media_app/features/auth/presentaion/cubits/auth_cubit.dart';
-
 import '../../../auth/domain/entities/app_user.dart';
 
 class UploadPostPage extends StatefulWidget {
@@ -17,7 +16,7 @@ class UploadPostPage extends StatefulWidget {
 class _UploadPostPageState extends State<UploadPostPage> {
   @override
   PlatformFile? imagePickedFile;
-  Uint8List webImage;
+  Uint8List? webImage;
   final textController = TextEditingController();
 
   AppUser? currentUser;
