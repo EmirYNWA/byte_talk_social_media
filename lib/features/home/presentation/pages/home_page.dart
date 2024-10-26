@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_media_app/features/home/presentation/components/my_drawer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media_app/app.dart';
 import 'package:social_media_app/features/auth/presentaion/cubits/auth_cubit.dart';
@@ -16,12 +17,17 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
+
         actions: [
           IconButton(
               onPressed: () {context.read<AuthCubit>().logout();},
               icon: const Icon(Icons.logout),)
         ],
       ),
+
+      // DRAWER
+      drawer: const MyDrawer(),
+
     );
   }
 }
