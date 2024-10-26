@@ -21,11 +21,11 @@ class MyTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide:  BorderSide(color: Theme.of(context).colorScheme.tertiary),
+          borderSide:  BorderSide(color: Theme.of(context).colorScheme.primary),
           borderRadius: BorderRadius.circular(12),
         ),
         hintText: hintText,
-        hintStyle: TextStyle(color: Theme.of(context).colorScheme.tertiary),
+        hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
         fillColor: Theme.of(context).colorScheme.secondary,
         filled: true,
       ),
