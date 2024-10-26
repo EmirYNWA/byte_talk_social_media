@@ -107,17 +107,20 @@ class ChatPage extends StatelessWidget {
         children: [
           // textfield should take up most of the space
           Expanded(
-            child: MyTextField(
-              controller: _messageController,
-              hintText: "Type a message",
-              obscureText: false,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: MyTextField(
+                controller: _messageController,
+                hintText: "Type a message",
+                obscureText: false,
+              ),
             ), // MyTextField
           ), // Expanded
 
           // send button
           Container(
             decoration: const BoxDecoration(
-              color: Colors.green,
+              color: Color(0xff62adc0),
               shape: BoxShape.circle,
             ), // BoxDecoration
             margin: const EdgeInsets.only(right: 25),
