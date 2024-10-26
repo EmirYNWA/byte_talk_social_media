@@ -15,12 +15,12 @@ class ChatListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home', style: TextStyle(fontFamily: 'Poppins'),),
+        title: const Text('Chats', style: TextStyle(fontFamily: 'Poppins'),),
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.grey,
         elevation: 0,
       ),
-      drawer: const MyDrawer(),
+
       body: _buildUserList(),
     );
   }

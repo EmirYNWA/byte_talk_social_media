@@ -63,7 +63,7 @@ class _UploadPostPageState extends State<UploadPostPage> {
       text: textController.text,
       imageUrl: '',
       timestamp: DateTime.now(),
-      likes:[],
+      likes: [],
     );
     final postCubit = context.read<PostCubit>();
     if (kIsWeb) {
@@ -85,45 +85,41 @@ class _UploadPostPageState extends State<UploadPostPage> {
         title: const Text("Create Post"),
         foregroundColor: Theme.of(context).colorScheme.primary,
         actions: [
-          IconButton(onPressed: uploadPost,
-              icon: Icon(Icons.upload)),
+          IconButton(onPressed: uploadPost, icon: Icon(Icons.upload)),
         ],
       ),
-      body: Padding(
+      body: SingleChildScrollView(  // Wrap the body in SingleChildScrollView
         padding: const EdgeInsets.all(12.0),
-        child: Center(
-          child: Column(
-            children: [
-              if (kIsWeb && webImage != null)
-                Image.memory(webImage!),
-              if (!kIsWeb && imagePickedFile != null)
-                Image.file(File(imagePickedFile!.path!)),
-              const SizedBox(height: 20,),
-              MaterialButton(
-                onPressed: pickImage,
-                color: Colors.grey.shade400,
-                textColor: Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: const Text(
-                  'Pick Image',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+        child: Column(
+          children: [
+            if (kIsWeb && webImage != null)
+              Image.memory(webImage!),
+            if (!kIsWeb && imagePickedFile != null)
+              Image.file(File(imagePickedFile!.path!)),
+            const SizedBox(height: 20,),
+            MaterialButton(
+              onPressed: pickImage,
+              color: Colors.grey.shade400,
+              textColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: const Text(
+                'Pick Image',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-
-              const SizedBox(height: 40,),
-              MyTextField(
-                controller: textController,
-                hintText: "Caption",
-                obscureText: false,
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 40,),
+            MyTextField(
+              controller: textController,
+              hintText: "Caption",
+              obscureText: false,
+            ),
+          ],
         ),
       ),
     );
