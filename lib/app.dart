@@ -4,18 +4,20 @@ import 'package:social_media_app/features/auth/data/firebase_auth_repo.dart';
 import 'package:social_media_app/features/auth/presentaion/cubits/auth.states.dart';
 import 'package:social_media_app/features/auth/presentaion/cubits/auth_cubit.dart';
 import 'package:social_media_app/features/auth/presentaion/pages/auth_page.dart';
-import 'package:social_media_app/themes/light_mode.dart;
+import 'package:social_media_app/themes/light_mode.dart';
 
 class AppFlow extends StatelessWidget {
   final authRepo = FirebaseAuthRepo();
 
   const AppFlow({super.key});
 
-  // This widget is the root of your application.
+  // This widget is the root of application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit(authRepo: authRepo)..checkAuth(),
+    return MultiBlocProvider(
+      providers: [
+
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: lightMode,
@@ -38,7 +40,7 @@ class AppFlow extends StatelessWidget {
           },
           listener: (context, state) {},
         ),
-      )
+      ),
     );
   }
 }

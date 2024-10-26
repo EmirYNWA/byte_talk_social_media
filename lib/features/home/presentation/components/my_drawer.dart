@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../auth/presentaion/cubits/auth_cubit.dart';
+import '../../../profile/presentation/pages/profile_page.dart';
 import 'my_drawer_tile.dart';
 
 class MyDrawer extends StatelessWidget{
@@ -31,14 +34,27 @@ class MyDrawer extends StatelessWidget{
                 MyDrawerTile(
                   title: "H O M E",
                   icon: Icons.home,
-                  onTap: () {},
+                  onTap: () => Navigator.of(context).pop(),
                 ),
 
                 // profile tile
                 MyDrawerTile(
                   title: "P R O F I L E",
                   icon: Icons.person,
-                  onTap: () {},
+                  onTap: () {
+                    // pop menu drawer
+                    Navigator.of(context).pop();
+                    // get current user id
+                    final user = context.read<AuthCubit>().currentUser;
+                    String? uid = user!.uid;
+                    //navigate to profile page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder:(context)=>ProfilePage(uid: uid),
+                      ),
+                    );
+                  },
                 ),
 
                 //search tile
@@ -61,7 +77,7 @@ class MyDrawer extends StatelessWidget{
                 MyDrawerTile(
                   title: "L O G O U T",
                   icon: Icons.login,
-                  onTap: () {},
+                  onTap: () => context.read<AuthCubit>().logout(),
                 ),
               ],
             ),
