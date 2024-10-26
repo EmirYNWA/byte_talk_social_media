@@ -117,10 +117,23 @@ class _PostTileState extends State<PostTile> {
             placeholder: (context, url) => const SizedBox(height: 430),
             errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
-          Row(
-            children: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Row(
+              children: [
+                  Icon(Icons.favorite_border),
+                  Text(" "),
+                  Text("0"),
 
-            ],
+
+                  Icon(Icons.comment),
+                  Text(" "),
+                  Text("0"),
+                const Spacer(),
+
+                Text(widget.post.timestamp.toString()),
+              ],
+            ),
           )
         ],
       ),
