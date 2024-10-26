@@ -50,11 +50,11 @@ class _HomePageState extends State<HomePage> {
 
       // DRAWER
       drawer: const MyDrawer(),
-      body: BlocBuilder<PostCubit, PostState>(
+     /* body: BlocBuilder<PostCubit, PostState>(
         builder: (context, state) {
           // TODO: continue the program
         },
-      )
+      )*/
     );
   }
 }
