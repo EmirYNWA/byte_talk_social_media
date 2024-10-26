@@ -1,22 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_media_app/app.dart';
 import 'package:social_media_app/features/auth/presentaion/components/my_button.dart';
 import 'package:social_media_app/features/auth/presentaion/components/my_text_field.dart';
+import 'package:social_media_app/features/auth/presentaion/cubits/auth_cubit.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  final void Function()? togglePages;
+
+  const RegisterPage({super.key, required this.togglePages});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+
   final usernameController = TextEditingController();
   final nameController = TextEditingController();
   final lastnameController = TextEditingController();
-  final surnameController = TextEditingController();
   final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
+  final pwController = TextEditingController();
+  final confirmPwController = TextEditingController();
+
+  void register (){
+    final String name = nameController.text;
+    final String email = emailController.text;
+    final String pw = pwController.text;
+    final String confirmPw = confirmPwController.text;
+
+    final authCubit = context.read<AuthCubit>();
+
+    if (email.isNotEmpty && name.isNotEmpty && pw.isNotEmpty && confirmPw.isNotEmpty){
+      if (pw == confirmPw){
+        authCubit.register(name, email, pw);
+      }
+      else{
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content:
+            Text('Passwords do not match!')));
+      }
+    }
+    else{
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content:
+          Text('Please complete all fields')));
+    }
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    pwController.dispose();
+    confirmPwController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +70,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 Icon(
                   Icons.lock_open_rounded,
                   size: 80,
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
                 const SizedBox(height: 15),
                 Text(
                   "Create an account!",
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimary,
+                    color: Theme.of(context).colorScheme.primary,
                     fontSize: 20,
                   ),
                 ),
@@ -67,14 +106,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height: 10),
 
-                // Surname field
-                MyTextField(
-                  controller: surnameController,
-                  hintText: "Surname",
-                  obscureText: false,
-                ),
-                const SizedBox(height: 10),
-
                 // Email field
                 MyTextField(
                   controller: emailController,
@@ -85,7 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 // Password field
                 MyTextField(
-                  controller: passwordController,
+                  controller: pwController,
                   hintText: "Password",
                   obscureText: true,
                 ),
@@ -93,7 +124,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 // Confirm Password field
                 MyTextField(
-                  controller: confirmPasswordController,
+                  controller: confirmPwController,
                   hintText: "Confirm Password",
                   obscureText: true,
                 ),
@@ -101,17 +132,28 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 // Register button
                 MyButton(
-                  onTap: () {
-                    // Add registration logic here
-                  },
+                  onTap: register,
                   text: "Register",
                 ),
                 const SizedBox(height: 25),
 
                 // Already a member?
-                Text(
-                  "Already a member? Login now",
-                  style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Already a member? ",
+                      style: TextStyle(color: Theme.of(context).colorScheme.primary, fontSize: 16),
+                    ),
+                    GestureDetector(
+                      onTap: widget.togglePages,
+                      child: Text(
+                        "Login now",
+                        style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary,
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

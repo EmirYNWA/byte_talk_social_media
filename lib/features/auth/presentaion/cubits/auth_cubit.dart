@@ -1,6 +1,5 @@
 
 import 'package:social_media_app/features/auth/presentaion/cubits/auth.states.dart';
-
 import '../../domain/repos/auth_repo.dart';
 import '../../domain/entities/app_user.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

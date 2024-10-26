@@ -4,12 +4,14 @@ import 'package:social_media_app/features/auth/data/firebase_auth_repo.dart';
 import 'package:social_media_app/features/auth/presentaion/cubits/auth.states.dart';
 import 'package:social_media_app/features/auth/presentaion/cubits/auth_cubit.dart';
 import 'package:social_media_app/features/auth/presentaion/pages/auth_page.dart';
-import 'package:social_media_app/themes/light_mode.dart;
+import 'package:social_media_app/features/posts/presentation/pages/home_page.dart';
+import 'package:social_media_app/themes/light_mode.dart';
+
 
 class AppFlow extends StatelessWidget {
   final authRepo = FirebaseAuthRepo();
 
-  const AppFlow({super.key});
+  AppFlow({super.key});
 
   // This widget is the root of your application.
   @override
@@ -36,7 +38,12 @@ class AppFlow extends StatelessWidget {
               );
             }
           },
-          listener: (context, state) {},
+          listener: (context, state) {
+            if (state is AuthError){
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(state.message)));
+            }
+          },
         ),
       )
     );
