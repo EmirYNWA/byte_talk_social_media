@@ -7,10 +7,6 @@ import 'package:social_media_app/features/auth/presentaion/pages/auth_page.dart'
 import 'package:social_media_app/features/home/presentation/pages/home_page.dart';
 import 'package:social_media_app/themes/light_mode.dart';
 
-
-
-
-
 class AppFlow extends StatelessWidget {
   final authRepo = FirebaseAuthRepo();
 
