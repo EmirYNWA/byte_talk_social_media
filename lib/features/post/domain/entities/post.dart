@@ -7,6 +7,7 @@ class Post{
   final String text;
   final String imageUrl;
   final DateTime timestamp;
+  final List<String> likes; // store uids
 
   Post({
     required this.id,
@@ -15,6 +16,7 @@ class Post{
     required this.text,
     required this.imageUrl,
     required this.timestamp,
+    required this.likes,
   });
   Post copywith({String? imageUrl}){
     return Post(
@@ -23,7 +25,8 @@ class Post{
         username: username,
         text: text,
         imageUrl: imageUrl ?? this.imageUrl,
-        timestamp: timestamp
+        timestamp: timestamp,
+        likes: likes,
         );
   }
   Map<String, dynamic> toJson(){
@@ -34,6 +37,7 @@ class Post{
       'text': text,
       'imageUrl': imageUrl,
       'timestamp': Timestamp.fromDate(timestamp),
+      'likes': likes,
     };
   }
 
@@ -44,7 +48,9 @@ class Post{
         username: json['username'],
         text: json['text'],
         imageUrl: json['imageUrl'],
-        timestamp: (json['timestamp'] as Timestamp).toDate(),);
+        timestamp: (json['timestamp'] as Timestamp).toDate(),
+        likes: json['likes'] ?? [],
+      );
     }
 }
 

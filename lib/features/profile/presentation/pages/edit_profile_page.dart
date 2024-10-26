@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -137,17 +136,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   color:  Theme.of(context).colorScheme.secondary,
                   shape: BoxShape.circle,
                 ),
-
+                clipBehavior: Clip.hardEdge,
                 child:
                 // display selected image for mobile
                 (!kIsWeb && imagePickedFile != null)
                 ? Image.file(
                     File(imagePickedFile!.path!),
+                  fit: BoxFit.cover,
                   )
                 :
                 // display selected image for web
                 (kIsWeb && webImage != null)
-                 ? Image.memory(webImage!)
+                 ? Image.memory(webImage!,fit: BoxFit.cover,)
                  :
                 // no image selected -> display existing profile pic
                 CachedNetworkImage(
@@ -163,7 +163,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                   //loaded
                   imageBuilder: (context, imageProvider)=>
-                      Image(image: imageProvider),
+                      Image(image: imageProvider,fit: BoxFit.cover),
                 ),
               ),
             ),

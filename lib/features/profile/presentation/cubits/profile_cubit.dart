@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media_app/features/profile/domain/repos/profile_repo.dart';
 import 'package:social_media_app/features/profile/presentation/cubits/profile_states.dart';
 import '../../../storage/domain/storage_repo.dart';
+import '../../domain/entities/profile_user.dart';
 
 class ProfileCubit extends Cubit<ProfileState>{
   final ProfileRepo profileRepo;
@@ -30,6 +31,11 @@ class ProfileCubit extends Cubit<ProfileState>{
     catch(e){
       emit(ProfileError(e.toString()));
     }
+  }
+
+  Future<ProfileUser?> getUserProfile(String uid) async {
+    final user = await profileRepo.fetchUserProfile(uid);
+    return user;
   }
 
   // update bio and or profile picutre
