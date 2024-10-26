@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_media_app/features/settings/pages/settings_page.dart';
 import '../../../auth/presentaion/cubits/auth_cubit.dart';
 import '../../../profile/presentation/pages/profile_page.dart';
 import 'my_drawer_tile.dart';
@@ -68,7 +69,12 @@ class MyDrawer extends StatelessWidget{
                 MyDrawerTile(
                   title: "S E T T I N G S",
                   icon: Icons.settings,
-                  onTap: () {},
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SettingsPage(),
+                    ),
+                  ),
                 ),
 
                 const Spacer(),
