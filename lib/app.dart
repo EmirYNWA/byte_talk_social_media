@@ -41,7 +41,8 @@ class AppFlow extends StatelessWidget {
           listener: (context, state) {
             if (state is AuthError){
               ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.message)));
+                  SnackBar(content: Text(state.message,
+                    style: const TextStyle(fontFamily: 'Poppins'),)));
             }
           },
         ),
